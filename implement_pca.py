@@ -2,18 +2,18 @@ from scipy.linalg import eigh
 import numpy as np
 import matplotlib.pyplot as plt
 
-def load_and_center_dataset(filename):
+def loadData(filename):
 
     x = np.load(filename)
     x = x - np.mean(x, axis=0)
     return x
 
-def get_covariance(dataset):
+def findCovariance(dataset):
 
     temp = 1/(len(dataset)-1)
     return temp*np.dot(np.transpose(dataset), dataset)
 
-def get_eig(S, m):
+def findEigen(S, m):
     lenS = len(S)
     Lambda, U = eigh(S, eigvals=(lenS-m,lenS-1))
     #reverse
@@ -22,11 +22,11 @@ def get_eig(S, m):
     U = np.transpose(np.transpose(U)[::-1]) 
     return np.diag(Lambda), U
 
-def project_image(img, U):
+def findImage(img, U):
 
     return np.dot(np.dot(U,np.transpose(U)),img)
 
-def display_image(orig, proj):
+def DispImage(orig, proj):
  
     orig = np.reshape(orig,(32,32))
     proj = np.reshape(proj,(32,32))
